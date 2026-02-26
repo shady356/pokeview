@@ -2,6 +2,7 @@ import { useState } from "react";
 import { usePokemonList, usePokemon } from "./services/pokemon/pokemonQueries";
 import { TYPE_COLORS, getPokemonSpriteByName } from "./utils/pokemon";
 import { PokemonModal } from "./PokemonModal";
+import { Header, HeaderButton } from "./layout/Header";
 
 function PokemonCard({ name, onClick }: { name: string; onClick: () => void }) {
   const { data, isLoading } = usePokemon(name);
@@ -52,23 +53,19 @@ export default function PokemonPage() {
   return (
     <>
       <div style={{ maxWidth: 1100, margin: "0 auto", padding: "60px 24px 80px" }}>
-        {/* Header */}
-        <div style={{ marginBottom: 48 }}>
-          <div style={{ fontSize: 11, letterSpacing: "0.2em", textTransform: "uppercase", color: "#e53935", marginBottom: 8 }}>
-            Pokédex
-          </div>
-          <h1 style={{
-            fontFamily: "'Bebas Neue', sans-serif",
-            fontSize: "clamp(52px, 8vw, 88px)",
-            letterSpacing: "0.04em", lineHeight: 0.95,
-            color: "#fff",
-          }}>
-            CHOOSE<br />YOUR<br />FIGHTER
-          </h1>
-          <p style={{ marginTop: 16, color: "#555", fontSize: 14, maxWidth: 360 }}>
-            Powered by PokéAPI & TanStack Query. Click any card to inspect stats.
-          </p>
-        </div>
+        <Header
+          title="Pokédex"
+          left={
+            <HeaderButton>
+              <span className="material-symbols-rounded">arrow_back</span>
+            </HeaderButton>
+          }
+          right={
+            <HeaderButton>
+              <span className="material-symbols-rounded">filter_list</span>
+            </HeaderButton>
+          }
+        />
 
         {/* Grid */}
         {isError && (
