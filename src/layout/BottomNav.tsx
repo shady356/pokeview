@@ -10,7 +10,7 @@ interface TabProps {
 }
 
 export function Tab({ icon, label, active = false, onClick }: TabProps) {
-  const color = active ? ACTIVE_COLOR : "#444";
+  const color = active ? ACTIVE_COLOR : "#222";
   return (
     <button
       onClick={onClick}
@@ -46,8 +46,7 @@ export function BottomNav({ children }: { children: ReactNode }) {
       left: 0,
       right: 0,
       display: "flex",
-      background: "#111",
-      borderTop: "1px solid #1e1e1e",
+      background: "#fff",
     }}>
       {children}
     </nav>

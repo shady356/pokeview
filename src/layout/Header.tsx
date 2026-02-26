@@ -16,7 +16,6 @@ const btnStyle: React.CSSProperties = {
   border: "none",
   borderRadius: 12,
   cursor: "pointer",
-  color: "#fff",
   flexShrink: 0,
 };
 
@@ -37,7 +36,7 @@ export function Header({ title, left, right }: HeaderProps) {
       marginBottom: 32,
     }}>
       <div style={{ width: 48 }}>{left ?? <span />}</div>
-      <span style={{ fontSize: 24, fontWeight: 700, color: "#fff" }}>{title}</span>
+      <span style={{ fontSize: 24, fontWeight: 700 }}>{title}</span>
       <div style={{ width: 48 }}>{right ?? <span />}</div>
     </div>
   );
