@@ -1,26 +1,6 @@
 import { useState } from "react";
 import { usePokemonList, usePokemon } from "./services/pokemon/pokemonQueries";
-
-const TYPE_COLORS: Record<string, string> = {
-  fire: "#FF6B35",
-  water: "#4FC3F7",
-  grass: "#81C784",
-  electric: "#FFD54F",
-  psychic: "#F48FB1",
-  ice: "#80DEEA",
-  dragon: "#7986CB",
-  dark: "#616161",
-  fairy: "#F8BBD9",
-  fighting: "#FF7043",
-  poison: "#AB47BC",
-  ground: "#BCAAA4",
-  rock: "#90A4AE",
-  bug: "#AED581",
-  ghost: "#7E57C2",
-  steel: "#B0BEC5",
-  normal: "#EEEEEE",
-  flying: "#90CAF9",
-};
+import { TYPE_COLORS, getPokemonSpriteByName } from "./utils/pokemon";
 
 function StatBar({ label, value }: { label: string; value: number }) {
   const pct = Math.min((value / 255) * 100, 100);
@@ -87,7 +67,7 @@ function PokemonModal({ name, onClose }: { name: string; onClose: () => void }) 
           <>
             <div style={{ textAlign: "center", marginBottom: 24 }}>
               <img
-                src={data.sprites.front_default ?? ""}
+                src={getPokemonSpriteByName(data.name)}
                 alt={data.name}
                 style={{ width: 120, height: 120, imageRendering: "pixelated" }}
               />
@@ -187,7 +167,7 @@ function PokemonCard({ name, onClick }: { name: string; onClick: () => void }) {
             #{String(data.id).padStart(3, "0")}
           </div>
           <img
-            src={data.sprites.front_default ?? ""}
+            src={getPokemonSpriteByName(data.name)}
             alt={data.name}
             style={{ width: 80, height: 80, imageRendering: "pixelated", display: "block" }}
           />
