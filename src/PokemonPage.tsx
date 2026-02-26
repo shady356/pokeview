@@ -72,7 +72,7 @@ export default function PokemonPage() {
 
   return (
     <>
-      <div style={{ maxWidth: 1100, margin: "0 auto", padding: "60px 24px 96px" }}>
+      <div style={{ maxWidth: 1100, margin: "0 auto", padding: "0 0 96px" }}>
         <Header
           title="Pokédex"
           left={
