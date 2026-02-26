@@ -3,7 +3,11 @@ import { usePokemonInfiniteList, usePokemon } from "./services/pokemon/pokemonQu
 import { TYPE_COLORS, getPokemonSpriteByName } from "./utils/pokemon";
 import { PokemonModal } from "./PokemonModal";
 import { Header, HeaderButton } from "./layout/Header";
+import { BottomNav, Tab } from "./layout/BottomNav";
+import pokedexIcon from "./assets/special_icons/pokedex.svg";
 import type { PokemonListResult } from "./services/pokemon/pokemonApi";
+
+type NavTab = "home" | "pokedex" | "settings";
 
 function PokemonCard({ name, onClick }: { name: string; onClick: () => void }) {
   const { data, isLoading } = usePokemon(name);
@@ -46,6 +50,7 @@ function PokemonCard({ name, onClick }: { name: string; onClick: () => void }) {
 
 export default function PokemonPage() {
   const [selected, setSelected] = useState<string | null>(null);
+  const [activeTab, setActiveTab] = useState<NavTab>("pokedex");
   const sentinelRef = useRef<HTMLDivElement>(null);
   const limit = 24;
 
@@ -67,7 +72,7 @@ export default function PokemonPage() {
 
   return (
     <>
-      <div style={{ maxWidth: 1100, margin: "0 auto", padding: "60px 24px 80px" }}>
+      <div style={{ maxWidth: 1100, margin: "0 auto", padding: "60px 24px 96px" }}>
         <Header
           title="Pokédex"
           left={
@@ -114,6 +119,27 @@ export default function PokemonPage() {
       </div>
 
       {selected && <PokemonModal name={selected} onClose={() => setSelected(null)} />}
+
+      <BottomNav>
+        <Tab
+          icon={<span className="material-symbols-rounded">home</span>}
+          label="Home"
+          active={activeTab === "home"}
+          onClick={() => setActiveTab("home")}
+        />
+        <Tab
+          icon={<img src={pokedexIcon} style={{ width: 24, height: 24 }} />}
+          label="Pokédex"
+          active={activeTab === "pokedex"}
+          onClick={() => setActiveTab("pokedex")}
+        />
+        <Tab
+          icon={<span className="material-symbols-rounded">settings</span>}
+          label="Settings"
+          active={activeTab === "settings"}
+          onClick={() => setActiveTab("settings")}
+        />
+      </BottomNav>
     </>
   );
 }
