@@ -78,13 +78,13 @@ export default function PokemonPage() {
         )}
 
         {isLoading ? (
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(160px, 1fr))", gap: 16 }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16 }}>
             {Array.from({ length: limit }).map((_, i) => (
               <div key={i} style={{ background: "#1a1a1a", borderRadius: 16, aspectRatio: "1", animation: `fadeUp 0.4s ${i * 0.03}s ease both` }} />
             ))}
           </div>
         ) : (
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(160px, 1fr))", gap: 16 }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16 }}>
             {data?.results.map((p, i) => (
               <div key={p.name} style={{ animationDelay: `${i * 0.03}s` }}>
                 <PokemonCard name={p.name} onClick={() => setSelected(p.name)} />
