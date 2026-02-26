@@ -1,4 +1,4 @@
-import { useQuery, type UseQueryResult } from "@tanstack/react-query";
+import { useQuery, useInfiniteQuery, type UseQueryResult } from "@tanstack/react-query";
 import {
   fetchPokemonList,
   fetchPokemonByName,
@@ -15,6 +15,19 @@ export const usePokemonList = (
   return useQuery({
     queryKey: ["pokemon", "list", { limit, offset }],
     queryFn: () => fetchPokemonList({ limit, offset }),
+  });
+};
+
+export const usePokemonInfiniteList = (limit = 24) => {
+  return useInfiniteQuery({
+    queryKey: ["pokemon", "infinite", limit],
+    queryFn: ({ pageParam = 0 }) => fetchPokemonList({ limit, offset: pageParam as number }),
+    initialPageParam: 0,
+    getNextPageParam: (lastPage) => {
+      if (!lastPage.next) return undefined;
+      const url = new URL(lastPage.next);
+      return Number(url.searchParams.get("offset"));
+    },
   });
 };
 
