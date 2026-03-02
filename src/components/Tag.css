@@ -2,13 +2,18 @@
   padding: 8px 20px;
   border-radius: 100px;
   border: none;
-  background: #E0E0E4;
+  background: #Ebebeb;
   color: #2B2D42;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.15s ease;
   white-space: nowrap;
+}
+
+.tag:active {
+  transform: scale(0.95);
+  touch-action: none;
 }
 
 .tag--selected {

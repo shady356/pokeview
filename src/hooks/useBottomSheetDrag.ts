@@ -7,6 +7,7 @@ export function useBottomSheetDrag(onClose: () => void) {
   const [isDragging, setIsDragging] = useState(false);
   const startY = useRef(0);
   const dragging = useRef(false);
+  const dragYRef = useRef(0);
 
   const handleTouchStart = useCallback((e: React.TouchEvent) => {
     startY.current = e.touches[0].clientY;
@@ -20,6 +21,7 @@ export function useBottomSheetDrag(onClose: () => void) {
       dragging.current = true;
       setIsDragging(true);
       setDragY(dy);
+      dragYRef.current = dy;
     }
   }, []);
 
@@ -27,15 +29,17 @@ export function useBottomSheetDrag(onClose: () => void) {
     if (!dragging.current) {
       setIsDragging(false);
       setDragY(0);
+      dragYRef.current = 0;
       return;
     }
-    if (dragY > DISMISS_THRESHOLD) {
+    if (dragYRef.current > DISMISS_THRESHOLD) {
       onClose();
     }
     setIsDragging(false);
     setDragY(0);
+    dragYRef.current = 0;
     dragging.current = false;
-  }, [dragY, onClose]);
+  }, [onClose]);
 
   const sheetStyle: React.CSSProperties = {
     transform: dragY > 0 ? `translateY(${dragY}px)` : undefined,

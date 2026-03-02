@@ -94,8 +94,8 @@ export function PokemonModal({ name, onClose, onNext, onPrev, hasNext, hasPrev }
         {isLoading ? (
           <div className="pokemon-modal__loading">Loading...</div>
         ) : data ? (
-          <>
-            <div className="pokemon-modal__header" style={{ background: color }}>
+          <div className="pokemon-modal__container" style={{ background: color }}>
+            <div className="pokemon-modal__header" >
               <div {...handleProps} className="pokemon-modal__handle">
                 <div className="pokemon-modal__handle-bar" />
               </div>
@@ -114,7 +114,6 @@ export function PokemonModal({ name, onClose, onNext, onPrev, hasNext, hasPrev }
               </div>
 
               <div className="pokemon-modal__sprite-container">
-                <div className="pokemon-modal__sprite-circle" />
                 <img
                   src={getPokemonSpriteByName(data.name)}
                   alt={data.name}
@@ -146,7 +145,7 @@ export function PokemonModal({ name, onClose, onNext, onPrev, hasNext, hasPrev }
                 <span className="material-symbols-rounded pokemon-modal__close-icon">close</span>
               </button>
             </div>
-          </>
+          </div>
         ) : null}
       </div>
     </>
