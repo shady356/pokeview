@@ -1,9 +1,13 @@
-import { useQuery, useInfiniteQuery, type UseQueryResult } from "@tanstack/react-query";
+import { useQuery, useQueries, useInfiniteQuery, type UseQueryResult } from "@tanstack/react-query";
 import {
   fetchPokemonList,
   fetchPokemonByName,
+  fetchPokemonByType,
+  fetchPokemonSpecies,
   type FetchPokemonListParams,
   type PokemonListResponse,
+  type PokemonListResult,
+  type PokemonSpecies,
   type Pokemon,
 } from "./pokemonApi";
 
@@ -39,4 +43,48 @@ export const usePokemon = (
     queryFn: () => fetchPokemonByName(name!),
     enabled: !!name,
   });
+};
+
+export const usePokemonSpecies = (
+  id: number | undefined
+): UseQueryResult<PokemonSpecies, Error> => {
+  return useQuery({
+    queryKey: ["pokemon", "species", id],
+    queryFn: () => fetchPokemonSpecies(id!),
+    enabled: !!id,
+  });
+};
+
+export const usePokemonByType = (
+  typeName: string | null
+): UseQueryResult<PokemonListResult[], Error> => {
+  return useQuery({
+    queryKey: ["pokemon", "type", typeName],
+    queryFn: () => fetchPokemonByType(typeName!),
+    enabled: !!typeName,
+  });
+};
+
+export const usePokemonByTypes = (typeNames: string[]) => {
+  const results = useQueries({
+    queries: typeNames.map((t) => ({
+      queryKey: ["pokemon", "type", t],
+      queryFn: () => fetchPokemonByType(t),
+    })),
+  });
+
+  const isLoading = results.some((r) => r.isLoading);
+  const isError = results.some((r) => r.isError);
+
+  // Union all type results, deduplicated by name
+  const data = !isLoading
+    ? Array.from(
+        results
+          .flatMap((r) => r.data ?? [])
+          .reduce((map, p) => map.set(p.name, p), new Map<string, PokemonListResult>())
+          .values()
+      )
+    : undefined;
+
+  return { data, isLoading, isError };
 };

@@ -7,6 +7,7 @@ interface HeaderProps {
 }
 
 const btnStyle: React.CSSProperties = {
+  position: "relative",
   width: 48,
   height: 48,
   display: "flex",
