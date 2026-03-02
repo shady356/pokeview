@@ -2,6 +2,8 @@ import { useState } from "react";
 import { REGIONS, POKEMON_TYPES, type Region, type PokemonTypeName } from "./services/pokemon/pokemonApi";
 import { Tag } from "./components/Tag";
 import { Badge } from "./components/Badge";
+import { useBottomSheetDrag } from "./hooks/useBottomSheetDrag";
+import "./FilterDrawer.css";
 
 export interface Filters {
   region: Region | null;
@@ -18,6 +20,7 @@ interface FilterDrawerProps {
 export function FilterDrawer({ open, filters, onApply, onClose }: FilterDrawerProps) {
   const [regionsOpen, setRegionsOpen] = useState(true);
   const [typesOpen, setTypesOpen] = useState(true);
+  const { sheetStyle, handleProps } = useBottomSheetDrag(onClose);
 
   const setRegion = (r: Region | null) => {
     onApply({ ...filters, region: r });
@@ -35,85 +38,42 @@ export function FilterDrawer({ open, filters, onApply, onClose }: FilterDrawerPr
 
   return (
     <>
-      {/* backdrop */}
       <div
         onClick={onClose}
-        style={{
-          position: "fixed",
-          inset: 0,
-          background: "rgba(0,0,0,0.45)",
-          zIndex: 900,
-          opacity: open ? 1 : 0,
-          pointerEvents: open ? "auto" : "none",
-          transition: "opacity 0.25s ease",
-        }}
+        className={`filter-drawer__backdrop${!open ? " filter-drawer__backdrop--hidden" : ""}`}
       />
 
-      {/* bottom sheet */}
       <div
+        className={`filter-drawer__sheet${open ? " filter-drawer__sheet--open" : ""}`}
         style={{
-          position: "fixed",
-          left: 0,
-          right: 0,
-          bottom: 0,
-          maxHeight: "80vh",
-          background: "#fff",
-          borderRadius: "24px 24px 0 0",
-          zIndex: 1000,
-          transform: open ? "translateY(0)" : "translateY(100%)",
-          transition: "transform 0.35s cubic-bezier(0.4,0,0.2,1)",
-          display: "flex",
-          flexDirection: "column",
-          overflow: "hidden",
-          color: "#2B2D42",
+          transform: open ? (sheetStyle.transform ?? undefined) : undefined,
+          transition: open ? sheetStyle.transition : undefined,
         }}
       >
-        {/* drag handle */}
-        <div style={{ display: "flex", justifyContent: "center", padding: "12px 0 4px" }}>
-          <div style={{ width: 40, height: 5, borderRadius: 3, background: "#D0D0D4" }} />
+        <div {...handleProps} className="filter-drawer__handle">
+          <div className="filter-drawer__handle-bar" />
         </div>
 
-        {/* title */}
-        <div style={{ textAlign: "center", padding: "8px 24px 20px" }}>
-          <span style={{ fontSize: 20, fontWeight: 700 }}>Filter Pokémon</span>
-        </div>
+        <div className="filter-drawer__title">Filter Pokémon</div>
 
-        {/* scrollable content */}
-        <div style={{ flex: 1, overflowY: "auto", padding: "0 24px 32px" }}>
-          {/* Regions section */}
-          <div style={{ marginBottom: 24 }}>
+        <div className="filter-drawer__content">
+          {/* Regions */}
+          <div className="filter-drawer__section">
             <button
               onClick={() => setRegionsOpen(!regionsOpen)}
-              style={{
-                display: "flex",
-                alignItems: "center",
-                width: "100%",
-                background: "none",
-                border: "none",
-                cursor: "pointer",
-                padding: "8px 0",
-                gap: 10,
-                color: "#2B2D42",
-              }}
+              className="filter-drawer__section-header"
             >
-              <span style={{ fontSize: 17, fontWeight: 700 }}>Regions</span>
+              <span className="filter-drawer__section-label">Regions</span>
               <Tag label={regionLabel} selected={filters.region !== null} />
               <span
-                className="material-symbols-rounded"
-                style={{
-                  marginLeft: "auto",
-                  fontSize: 22,
-                  color: "#999",
-                  transition: "transform 0.2s ease",
-                  transform: regionsOpen ? "rotate(0deg)" : "rotate(-90deg)",
-                }}
+                className={`material-symbols-rounded filter-drawer__section-chevron${!regionsOpen ? " filter-drawer__section-chevron--collapsed" : ""}`}
               >
                 expand_more
               </span>
             </button>
 
             {regionsOpen && (
-              <div style={{ display: "flex", flexWrap: "wrap", gap: 8, paddingTop: 12 }}>
+              <div className="filter-drawer__tags">
                 {REGIONS.map((r) => (
                   <Tag
                     key={r.name}
@@ -126,40 +86,23 @@ export function FilterDrawer({ open, filters, onApply, onClose }: FilterDrawerPr
             )}
           </div>
 
-          {/* Types section */}
-          <div>
+          {/* Types */}
+          <div className="filter-drawer__section">
             <button
               onClick={() => setTypesOpen(!typesOpen)}
-              style={{
-                display: "flex",
-                alignItems: "center",
-                width: "100%",
-                background: "none",
-                border: "none",
-                cursor: "pointer",
-                padding: "8px 0",
-                gap: 10,
-                color: "#2B2D42",
-              }}
+              className="filter-drawer__section-header"
             >
-              <span style={{ fontSize: 17, fontWeight: 700 }}>Types</span>
+              <span className="filter-drawer__section-label">Types</span>
               <Badge value={typeCount} selected={typeCount > 0} />
               <span
-                className="material-symbols-rounded"
-                style={{
-                  marginLeft: "auto",
-                  fontSize: 22,
-                  color: "#999",
-                  transition: "transform 0.2s ease",
-                  transform: typesOpen ? "rotate(0deg)" : "rotate(-90deg)",
-                }}
+                className={`material-symbols-rounded filter-drawer__section-chevron${!typesOpen ? " filter-drawer__section-chevron--collapsed" : ""}`}
               >
                 expand_more
               </span>
             </button>
 
             {typesOpen && (
-              <div style={{ display: "flex", flexWrap: "wrap", gap: 8, paddingTop: 12 }}>
+              <div className="filter-drawer__tags">
                 {POKEMON_TYPES.map((t) => (
                   <Tag
                     key={t}

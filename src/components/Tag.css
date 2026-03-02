@@ -1,0 +1,17 @@
+.tag {
+  padding: 8px 20px;
+  border-radius: 100px;
+  border: none;
+  background: #E0E0E4;
+  color: #2B2D42;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.tag--selected {
+  background: #4361EE;
+  color: #fff;
+}

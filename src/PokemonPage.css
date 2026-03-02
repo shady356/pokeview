@@ -1,0 +1,102 @@
+.pokemon-page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 0 96px;
+}
+
+.pokemon-page__error {
+  color: #e53935;
+  background: #1a0a0a;
+  border: 1px solid #3a1010;
+  border-radius: 8px;
+  padding: 20px 24px;
+  font-size: 14px;
+}
+
+.pokemon-page__empty {
+  text-align: center;
+  padding: 60px 20px;
+  color: #666;
+}
+
+.pokemon-page__empty-icon {
+  font-size: 48px;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.pokemon-page__empty-text {
+  font-size: 16px;
+  margin: 0;
+}
+
+.pokemon-page__sentinel {
+  height: 1px;
+}
+
+.pokemon-page__loader {
+  display: flex;
+  justify-content: center;
+  padding: 32px 0;
+}
+
+.pokemon-page__spinner {
+  width: 24px;
+  height: 24px;
+  border: 2px solid #222;
+  border-top-color: #e53935;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+.pokemon-page__filter-count {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #e53935;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+/* Pokemon card */
+.pokemon-card {
+  border-radius: 16px;
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  animation: fadeUp 0.4s ease both;
+  transition: transform 0.15s, filter 0.15s;
+}
+
+.pokemon-card:hover {
+  transform: scale(1.05);
+  filter: brightness(1.1);
+}
+
+.pokemon-card__sprite {
+  width: 70%;
+  height: 70%;
+  object-fit: contain;
+}
+
+.pokemon-page__skeleton {
+  background: #1a1a1a;
+  border-radius: 16px;
+  aspect-ratio: 1;
+  animation: fadeUp 0.4s ease both;
+}
+
+.pokemon-page__pokedex-icon {
+  width: 24px;
+  height: 24px;
+}

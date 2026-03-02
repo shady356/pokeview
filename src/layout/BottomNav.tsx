@@ -1,6 +1,5 @@
-import {type ReactNode } from "react";
-
-const ACTIVE_COLOR = "#4361EE";
+import { type ReactNode } from "react";
+import "./BottomNav.css";
 
 interface TabProps {
   icon: ReactNode;
@@ -10,44 +9,20 @@ interface TabProps {
 }
 
 export function Tab({ icon, label, active = false, onClick }: TabProps) {
-  const color = active ? ACTIVE_COLOR : "#222";
   return (
     <button
       onClick={onClick}
-      style={{
-        flex: 1,
-        height: 64,
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        gap: 2,
-        background: "none",
-        border: "none",
-        cursor: "pointer",
-        color,
-        transition: "color 0.15s",
-        padding: 0,
-      }}
+      className={`bottom-nav__tab${active ? " bottom-nav__tab--active" : ""}`}
     >
-      <span style={{ width: 24, height: 24, display: "flex", alignItems: "center", justifyContent: "center" }}>
-        {icon}
-      </span>
-      <span style={{ fontSize: 12, fontWeight: 500, lineHeight: 1 }}>{label}</span>
+      <span className="bottom-nav__tab-icon">{icon}</span>
+      <span className="bottom-nav__tab-label">{label}</span>
     </button>
   );
 }
 
 export function BottomNav({ children }: { children: ReactNode }) {
   return (
-    <nav style={{
-      position: "fixed",
-      bottom: 0,
-      left: 0,
-      right: 0,
-      display: "flex",
-      background: "#fff",
-    }}>
+    <nav className="bottom-nav">
       {children}
     </nav>
   );

@@ -1,0 +1,42 @@
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  background: #fff;
+}
+
+.bottom-nav__tab {
+  flex: 1;
+  height: 64px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #222;
+  transition: color 0.15s;
+  padding: 0;
+}
+
+.bottom-nav__tab--active {
+  color: #4361EE;
+}
+
+.bottom-nav__tab-icon {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bottom-nav__tab-label {
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1;
+}

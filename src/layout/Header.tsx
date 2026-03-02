@@ -1,4 +1,5 @@
 import { type ReactNode } from "react";
+import "./Header.css";
 
 interface HeaderProps {
   title: string;
@@ -6,23 +7,9 @@ interface HeaderProps {
   right?: ReactNode;
 }
 
-const btnStyle: React.CSSProperties = {
-  position: "relative",
-  width: 48,
-  height: 48,
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  background: "none",
-  border: "none",
-  borderRadius: 12,
-  cursor: "pointer",
-  flexShrink: 0,
-};
-
 export function HeaderButton({ onClick, children }: { onClick?: () => void; children: ReactNode }) {
   return (
-    <button onClick={onClick} style={btnStyle}>
+    <button onClick={onClick} className="header__btn">
       {children}
     </button>
   );
@@ -30,15 +17,10 @@ export function HeaderButton({ onClick, children }: { onClick?: () => void; chil
 
 export function Header({ title, left, right }: HeaderProps) {
   return (
-    <div style={{
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "space-between",
-      marginBottom: 32,
-    }}>
-      <div style={{ width: 48 }}>{left ?? <span />}</div>
-      <span style={{ fontSize: 24, fontWeight: 700 }}>{title}</span>
-      <div style={{ width: 48 }}>{right ?? <span />}</div>
+    <div className="header">
+      <div className="header__slot">{left ?? <span />}</div>
+      <span className="header__title">{title}</span>
+      <div className="header__slot">{right ?? <span />}</div>
     </div>
   );
 }

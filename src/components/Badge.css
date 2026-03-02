@@ -1,0 +1,25 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 28px;
+  height: 28px;
+  padding: 0 8px;
+  border-radius: 10px;
+  background: #E0E0E4;
+  color: #2B2D42;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: default;
+  transition: all 0.15s ease;
+  line-height: 1;
+}
+
+.badge--selected {
+  background: #4361EE;
+  color: #fff;
+}
+
+.badge--clickable {
+  cursor: pointer;
+}
